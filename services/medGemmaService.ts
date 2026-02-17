@@ -4,7 +4,8 @@ import { ChatMessage } from "../types";
  * URL do seu backend via ngrok. 
  * Lembre-se que se você reiniciar o ngrok, essa URL pode mudar.
  */
-const BACKEND_URL = "https://uncapitalistic-gibson-germane.ngrok-free.dev/chat";
+// Usa endpoint relativo; o `vite` já contém proxy para o ngrok em `vite.config.ts`
+const BACKEND_URL = "/chat";
 
 /**
  * Envia a interação para o backend personalizado.
@@ -30,9 +31,7 @@ export const sendMessageToEsmeralda = async (
     const response = await fetch(BACKEND_URL, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        // Header necessário para ignorar o aviso de segurança do ngrok em chamadas de API
-        "ngrok-skip-browser-warning": "69420" 
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(payload),
     });
@@ -46,9 +45,9 @@ export const sendMessageToEsmeralda = async (
 
     /**
      * IMPORTANTE: Aqui assumimos que seu backend responde um JSON 
-     * no formato: { "response": "texto aqui" }
+     * no formato: { "resposta": "texto aqui" }
      */
-    return data.response || data.text || "O servidor não retornou um campo de texto válido.";
+    return data.resposta || data.response || data.text || "O servidor não retornou um campo de texto válido.";
 
   } catch (error) {
     console.error("Erro ao conectar com o backend:", error);
