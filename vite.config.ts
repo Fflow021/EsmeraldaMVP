@@ -8,6 +8,14 @@ export default defineConfig(({ mode }) => {
       server: {
         port: 3000,
         host: '0.0.0.0',
+        proxy: {
+          // Redireciona chamadas locais a /chat para o backend exposto pelo ngrok
+          '/chat': {
+            target: 'https://uncapitalistic-gibson-germane.ngrok-free.dev',
+            changeOrigin: true,
+            secure: false,
+          },
+        },
       },
       plugins: [react()],
       define: {
