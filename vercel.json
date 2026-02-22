@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/chat",
+      "destination": "https://uncapitalistic-gibson-germane.ngrok-free.dev"
+    }
+  ]
+}
